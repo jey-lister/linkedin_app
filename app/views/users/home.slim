@@ -1,0 +1,52 @@
+- if user_signed_in?
+  table.profile_table border='0' width='100%'
+    tr
+      td
+        | First Name
+      td
+         == @linked_in.info.first_name
+    tr
+      td
+        | Last Name
+      td
+        == @linked_in.info.last_name
+    tr
+      td
+        | Full Name
+      td
+        == @linked_in.info.name
+    tr
+      td
+        | Title
+      td
+        == @linked_in.info.description
+    tr
+      td
+        | Location
+      td
+        == @linked_in.info.location
+    tr
+      td
+        | Industry
+      td
+        == @linked_in.info.industry
+    tr
+      td
+        | Picture
+      td
+        == image_tag(@linked_in.info.image)
+    tr
+      td
+        | Public Profile
+      td
+        == link_to('Public profile', @linked_in.info.urls.public_profile)
+    tr
+      td
+        | Connections
+      td
+        == render partial: 'collection', collection: @linked_in.extra.raw_info.connections.values[3]
+    tr
+      td
+        | Educations
+      td
+        == render partial: 'education', collection: @linked_in.extra.raw_info.educations.values[1]

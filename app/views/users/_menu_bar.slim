@@ -1,0 +1,6 @@
+div
+  ul.nav.nav-pills
+    li class="#{(params[:controller].eql?('users') && params[:action].eql?('home')) ? 'active' : ''}"
+      == link_to('Home', root_path)
+    li class="#{(params[:controller].eql?('users') && params[:action].eql?('search_linkedin')) ? 'active' : ''}"
+      == link_to('Search Linked in', search_linkedin_users_path)

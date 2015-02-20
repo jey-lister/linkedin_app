@@ -1,0 +1,27 @@
+div.profile-1-depth
+  table.profile_table.profile-table-1-depth border='0' width='100%'
+    tr
+      td width='30%'
+        | Degree
+      td width='70%'
+        == education.degree
+    tr
+      td width='30%'
+        | Field of Study
+      td width='70%'
+        == education.fieldOfStudy
+    tr
+      td width='30%'
+        | Institution
+      td width='70%'
+        == education.schoolName
+    tr
+      td width='30%'
+        | Start Date
+      td width='70%'
+        == education.startDate.year
+    tr
+      td width='30%'
+        | End Date
+      td width='70%'
+        == education.endDate.year

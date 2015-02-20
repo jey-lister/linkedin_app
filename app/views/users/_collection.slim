@@ -1,0 +1,32 @@
+div.profile-1-depth
+  table.profile_table.profile-table-1-depth border='0' width='100%'
+    tr
+      td width='30%'
+        | First Name
+      td width='70%'
+        == collection.firstName
+    tr
+      td
+        | Last Name
+      td
+        == collection.lastName
+    tr
+      td
+        | Head Line
+      td
+        == collection.headline
+    tr
+      td
+        | Location
+      td
+        == collection.location.name
+    tr
+      td
+        | Picture
+      td
+        == image_tag(collection.pictureUrl)
+    tr
+      td
+        | Industry
+      td
+        == collection.location.industry

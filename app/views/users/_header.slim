@@ -1,0 +1,13 @@
+.login_header
+  - if user_signed_in?
+    span.signed_in_as
+      |Signed in as
+    span.user_name
+      == current_user.name
+      span.signed_in_as
+        |Not you?
+    == link_to "Sign out", destroy_user_session_path, :method => :delete
+  - else
+    == link_to "Sign in with Linkedin", user_omniauth_authorize_path(:linkedin), { class: 'btn-link' }
+
+== render 'users/menu_bar'

@@ -1,0 +1,9 @@
+div
+  form.form-horizontal
+    .form-group
+      label.control-label.col-sm-2 Search
+      .col-sm-10
+        p.form-control-static
+          == text_field_tag('search[linked_in]', nil, { class: 'col-sm-10 input-lg', placeholder: 'Type to search in linked in' })
+          span.input-group-btn
+          == submit_tag('Search', { class: 'btn btn-default input-lg btn-success' })
