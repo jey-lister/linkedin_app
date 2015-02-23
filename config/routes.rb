@@ -65,6 +65,8 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'users#home'
+  get '/json' => 'users#profile_json', as: :profile_json
+
+  root to: 'users#login'
 
 end

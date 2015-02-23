@@ -10,4 +10,4 @@
   - else
     == link_to "Sign in with Linkedin", user_omniauth_authorize_path(:linkedin), { class: 'btn-link' }
 
-== render 'users/menu_bar'
+== render 'users/menu_bar' if user_signed_in?

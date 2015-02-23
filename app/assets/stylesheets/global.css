@@ -1,3 +1,11 @@
+#loader {
+    display: block;
+    margin: auto 0;
+    position: fixed;
+    text-align: center;
+    width: 90%;
+    z-index: 1000;
+}
 .login_header {
     text-align: right;
     padding-right: 21px;

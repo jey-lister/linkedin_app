@@ -19,7 +19,7 @@ div.profile-1-depth
       td
         | Location
       td
-        == collection.location.name
+        == collection.location.try(:name)
     tr
       td
         | Picture
@@ -29,4 +29,4 @@ div.profile-1-depth
       td
         | Industry
       td
-        == collection.location.industry
+        == collection.location.try(:industry)

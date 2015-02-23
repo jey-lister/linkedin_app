@@ -8,3 +8,4 @@ html
   body
     == render 'users/header'
     == yield
+    == content_tag(:div, image_tag('loader.gif'), { id: 'loader', style: 'display: none' })
