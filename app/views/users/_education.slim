@@ -19,9 +19,9 @@ div.profile-1-depth
       td width='30%'
         | Start Date
       td width='70%'
-        == education.startDate.year
+        == education.startDate.try(:year)
     tr
       td width='30%'
         | End Date
       td width='70%'
-        == education.endDate.year
+        == education.endDate.try(:year)
