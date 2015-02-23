@@ -22,7 +22,7 @@ module ApplicationHelper
   end
 
   def get_connection_details(user_info)
-    user_info.extra.raw_info.connections.values[3].map do |connection|
+    user_info.extra.raw_info.connections.values[3] && user_info.extra.raw_info.connections.values[3].map do |connection|
       {
           :'First Name' => connection.firstName,
           :'Last Name' => connection.lastName,
@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def get_education_details(user_info)
-    user_info.extra.raw_info.educations.values[1].map do |education|
+    user_info.extra.raw_info.educations.values[1] && user_info.extra.raw_info.educations.values[1].map do |education|
       {
           :'Degree' => education.degree,
           :'Field of Study' => education.fieldOfStudy,
