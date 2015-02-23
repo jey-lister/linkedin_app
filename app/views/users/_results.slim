@@ -1,0 +1,4 @@
+div width='50%'
+  div
+    == "Total #{pluralize(result['companies']['_total'], 'company')} found"
+    == render partial: 'result', collection: result['companies']['values']

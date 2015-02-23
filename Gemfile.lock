@@ -84,6 +84,10 @@ GEM
     json (1.8.2)
     jwt (1.2.1)
     libv8 (3.16.14.7)
+    linkedin (1.0.0)
+      hashie (~> 3.0)
+      multi_json (~> 1.0)
+      oauth (~> 0.4)
     linkedin-scraper (0.1.5)
       mechanize
     loofah (2.0.1)
@@ -107,6 +111,7 @@ GEM
     multipart-post (2.0.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
+    netrc (0.10.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     ntlm-http (0.1.1)
@@ -175,6 +180,9 @@ GEM
     ref (1.0.5)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rest-client (1.7.3)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     sass (3.4.11)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -234,6 +242,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  linkedin
   linkedin-scraper
   omniauth
   omniauth-facebook
@@ -242,6 +251,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.0)
   rails_12factor
+  rest-client (~> 1.7.2)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   slim

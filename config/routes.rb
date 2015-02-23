@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     collection do
       get 'home'
       get 'search_linkedin'
+      get 'search_linkedin_api'
     end
   end
 
