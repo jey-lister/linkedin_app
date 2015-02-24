@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get 'home'
       get 'search_linkedin'
       get 'search_linkedin_api'
+      get 'search_cached_linkedin_users'
     end
   end
 

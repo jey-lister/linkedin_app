@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: :login
+  skip_before_action :authenticate_user!, only: [:login, :search_cached_linkedin_users]
   before_action :linkedin_profile_info, only: [:home, :profile_json]
 
   def login
@@ -25,10 +25,20 @@ class UsersController < ApplicationController
 
   end
 
+  def search_cached_linkedin_users
+    @matched_users = matched_users.compact
+  end
+
   private
 
   def linkedin_profile_info
     @linked_in = current_user.detailed_profile.info
+  end
+
+  def matched_users
+    User.by_provider('linkedin').map do |user|
+      user if user.company_matched?(params[:search][:linked_in])
+    end
   end
 
 end

@@ -1,0 +1,12 @@
+div.profile-1-depth
+  table.profile_table.profile-table-1-depth border='0' width='100%'
+    tr
+      td width='30%'
+        | Name
+      td width='70%'
+        == cached_user.name
+    tr
+      td width='30%'
+        | Email
+      td width='70%'
+        == cached_user.email

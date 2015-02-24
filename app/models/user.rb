@@ -41,4 +41,19 @@ class User < ActiveRecord::Base
     user
   end
 
+  def connections_company_names
+    detailed_profile.info.extra.raw_info.connections.values[3].map do |connection|
+      connection.headline
+    end
+  end
+
+  def company_matched?(match_string)
+    flag = false
+    connections_company_names.compact.map do |name|
+      flag = true if name.downcase.include?(match_string.downcase)
+      break if flag
+    end
+    flag
+  end
+
 end

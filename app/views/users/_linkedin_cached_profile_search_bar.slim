@@ -1,0 +1,10 @@
+- value = (params[:search] && params[:search][:linked_in]) ? params[:search][:linked_in] : nil
+div
+  == form_tag(search_cached_linkedin_users_users_path, { class: 'form-horizontal', method: :get })
+    .form-group
+      label.control-label.col-sm-2 Search Cached profile
+      .col-sm-10
+        p.form-control-static
+          == text_field_tag('search[linked_in]', value, { class: 'col-sm-10 input-lg', placeholder: 'Type to search cached linkedin users' })
+          span.input-group-btn
+          == submit_tag('Search', { class: 'btn btn-default input-lg btn-success' })
