@@ -63,3 +63,4 @@ gem 'omniauth-linkedin'
 
 gem 'linkedin-scraper' #parse html file and give user information by their public profile url
 gem 'rest-client', '~> 1.7.2'
+gem 'oauth2'

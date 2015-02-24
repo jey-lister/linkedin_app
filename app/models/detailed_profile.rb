@@ -4,4 +4,8 @@ class DetailedProfile < ActiveRecord::Base
 
   serialize :info, Hash
 
+  def connections
+    super && JSON.parse(super)
+  end
+
 end

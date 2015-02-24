@@ -244,6 +244,7 @@ DEPENDENCIES
   jquery-rails
   linkedin
   linkedin-scraper
+  oauth2
   omniauth
   omniauth-facebook
   omniauth-linkedin
