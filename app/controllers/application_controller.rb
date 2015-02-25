@@ -13,4 +13,30 @@ class ApplicationController < ActionController::Base
           super
         end
   end
+
+  def authenticate_user!
+    session[:user].blank? ? log_out : check_user
+  end
+
+  def log_out
+    reset_session
+    redirect_to root_url
+  end
+
+  def check_user
+    @current_user = User.find(session[:user])
+    if @current_user
+      set_user_sessions
+    else
+      log_out
+    end
+  end
+
+  def set_user_sessions
+    session[:user] = @current_user.id
+  end
+
+  def current_user
+    @current_user || (session[:user] && User.find(session[:user]))
+  end
 end

@@ -59,6 +59,8 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
+      get 'sign_in_with_linked_in'
+      get 'authorize_linkedin_user'
       get 'home'
       get 'search_linkedin'
       get 'search_linkedin_api'
@@ -67,6 +69,7 @@ Rails.application.routes.draw do
   end
 
   get '/json' => 'users#profile_json', as: :profile_json
+  match '/logout' => 'application#log_out', as: :logout, via: [:get, :delete]
 
   root to: 'users#login'
 

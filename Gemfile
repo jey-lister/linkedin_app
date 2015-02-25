@@ -59,7 +59,9 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-gem 'omniauth-linkedin'
+# gem 'omniauth-linkedin'
+# gem 'omniauth-linkedin-oauth2'
+gem 'linkedin-oauth2', '~> 1.0'
 
 gem 'linkedin-scraper' #parse html file and give user information by their public profile url
 gem 'rest-client', '~> 1.7.2'

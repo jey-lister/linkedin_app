@@ -5,16 +5,10 @@ module ApplicationHelper
       user_info = user.detailed_profile.info
       [
           {
-              :'First Name' => user_info.info.first_name,
-              :'Last Name' => user_info.info.last_name,
-              :'Full Name' => user_info.info.name,
-              :'Title' => user_info.info.description,
-              :'Location' => user_info.info.location,
-              :'Industry' => user_info.info.industry,
-              :'Picture' => user_info.info.image,
-              :'Current Companies' => get_current_company_details(user_info),
-              connections: get_connection_details(user_info, user),
-              educations: get_education_details(user_info)
+              :'First Name' => user.first_name,
+              :'Last Name' => user.last_name,
+              :'Title' => user.headline,
+              connections: get_connection_details(user_info, user)
 
           }
       ]

@@ -4,29 +4,24 @@ div.profile-1-depth
       td width='30%'
         | First Name
       td width='70%'
-        == collection.firstName
+        == collection['firstName']
     tr
       td
         | Last Name
       td
-        == collection.lastName
-    tr
-      td
-        | Head Line
-      td
-        == collection.headline
+        == collection['lastName']
     tr
       td
         | Location
       td
-        == collection.location.try(:name)
+        == collection['location'] && collection['location']['name']
     tr
       td
         | Picture
       td
-        == image_tag(collection.pictureUrl)
+        == image_tag(collection['pictureUrl'])
     tr
       td
-        | Industry
+        | Positions
       td
-        == collection.location.try(:industry)
+        == collection['positions']['values'] && collection['positions']['values'].map { |position| position['company'] && position['company']['name'] }.join(', ')
