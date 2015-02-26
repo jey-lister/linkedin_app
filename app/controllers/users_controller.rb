@@ -9,14 +9,14 @@ class UsersController < ApplicationController
 
   def sign_in_with_linked_in
     oauth = LinkedIn::OAuth2.new
-    url = oauth.auth_code_url
+    url   = oauth.auth_code_url
     redirect_to url
   end
 
   def authorize_linkedin_user
-    oauth = LinkedIn::OAuth2.new
-    code = params[:code]
-    access_token = oauth.get_access_token(code)
+    oauth         = LinkedIn::OAuth2.new
+    code          = params[:code]
+    access_token  = oauth.get_access_token(code)
     @current_user = User.login_with_linkedin(access_token.token)
     set_user_sessions
     redirect_to action: :home
@@ -31,9 +31,10 @@ class UsersController < ApplicationController
   end
 
   def search_linkedin_api
-    page = params[:page] || 0
-    response = RestClient.get "https://api.linkedin.com/v1/company-search?keywords=#{URI.escape(params[:search][:linked_in])}&sort=relevance&format=json&oauth2_access_token=#{current_user.oauth2_access_token}&start=#{page}"
-    @result = JSON.parse response
+    params[:page] ||= '0'
+    page_offset   = params[:page].to_i * 10
+    response      = RestClient.get "https://api.linkedin.com/v1/company-search?keywords=#{URI.escape(params[:search][:linked_in])}&sort=relevance&format=json&oauth2_access_token=#{current_user.oauth2_access_token}&start=#{page_offset}"
+    @result       = JSON.parse response
   end
 
   def profile_json
