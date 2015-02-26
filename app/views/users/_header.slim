@@ -6,8 +6,8 @@
       == current_user.name
       span.signed_in_as
         |Not you?
-    == link_to "Sign out", logout_path, :method => :delete
+    == link_to 'Sign out', logout_path, :method => :delete
   - else
-    == link_to "Sign in with Linkedin", sign_in_with_linked_in_users_path, { class: 'btn-link' }
+    == link_to ' ', sign_in_with_linked_in_users_path, { class: 'btn-link', id: 'linkedin_sign_in' }
 
 == render 'users/menu_bar' if user_signed_in?
