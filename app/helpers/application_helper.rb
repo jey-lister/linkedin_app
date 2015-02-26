@@ -36,7 +36,7 @@ module ApplicationHelper
             :'Title' => connection['title'],
             :'Location' => connection['location'] && connection['location']['name'],
             :'Picture' => connection['pictureUrl'],
-            :'Positions' => connection['positions']['values'] && connection['positions']['values'].map { |position| { :'Company' => position['company'] } }
+            :'Positions' => connection['positions'] && connection['positions']['values'] && connection['positions']['values'].map { |position| { :'Company' => position['company'] } }
         }
       end
     end
