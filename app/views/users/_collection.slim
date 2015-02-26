@@ -24,4 +24,4 @@ div.profile-1-depth
       td
         | Positions
       td
-        == collection['positions']['values'] && collection['positions']['values'].map { |position| position['company'] && position['company']['name'] }.join(', ')
+        == collection['positions'] && collection['positions']['values'] && collection['positions']['values'].map { |position| position['company'] && position['company']['name'] }.join(', ')
