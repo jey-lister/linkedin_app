@@ -3,15 +3,15 @@ module ApplicationHelper
   def generate_profile_json
     users_detail_hash = User.by_provider('linkedin').map do |user|
       user_info = user.detailed_profile.info
-      [
-          {
-              :'First Name' => user.first_name,
-              :'Last Name' => user.last_name,
-              :'Title' => user.headline,
-              connections: get_connection_details(user_info, user)
 
-          }
-      ]
+        {
+            :'First Name' => user.first_name,
+            :'Last Name' => user.last_name,
+            :'Title' => user.headline,
+            connections: get_connection_details(user_info, user)
+
+        }
+
     end
     users_detail_hash.to_json
   end
@@ -29,7 +29,8 @@ module ApplicationHelper
         }
       end
     else
-      user.detailed_profile.connections.values[3].map do |connection|
+      available_connections = user.detailed_profile.connections.values.last
+      available_connections.map do |connection|
         {
             :'First Name' => connection['firstName'],
             :'Last Name' => connection['lastName'],
