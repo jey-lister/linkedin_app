@@ -20,8 +20,3 @@
         | Connections
       td
         == render partial: 'collection', collection: @current_user.detailed_profile.connections['values']
-    tr
-      td
-        | Educations
-      td
-        |== #render partial: 'education', collection: @linked_in.extra.raw_info.educations.values[1]
