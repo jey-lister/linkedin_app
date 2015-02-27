@@ -23,7 +23,7 @@
     p
       label.control-label.col-sm-1 Profile url
       span
-        == (matched_connection['siteStandardProfileRequest'] && matched_connection['siteStandardProfileRequest']['url']) ? link_to('View profile', matched_connection['siteStandardProfileRequest']['url']) : ''
+        == (matched_connection['siteStandardProfileRequest'] && matched_connection['siteStandardProfileRequest']['url']) ? link_to('View profile', matched_connection['siteStandardProfileRequest']['url'], { target: '_blank' }) : ''
 
   .ind_connection_reference
     p
