@@ -1,0 +1,36 @@
+.cached-profile_ind
+  .ind_connection
+    p
+      label.control-label.col-sm-1 First Name
+      span
+        == matched_connection['firstName']
+    p
+      label.control-label.col-sm-1 Last Name
+      span
+        == matched_connection['lastName']
+    p
+      label.control-label.col-sm-1 Image
+      span.image
+        == image_tag(matched_connection['pictureUrl'])
+    p
+      label.control-label.col-sm-1 Location
+      span
+        == matched_connection['location'] && matched_connection['location']['name']
+    p
+      label.control-label.col-sm-1 Positions
+      span
+        == matched_connection['positions'] && matched_connection['positions']['values'] && matched_connection['positions']['values'].map { |c| c['company'] && c['company']['name'] }.join(', ')
+    p
+      label.control-label.col-sm-1 Profile url
+      span
+        == (matched_connection['siteStandardProfileRequest'] && matched_connection['siteStandardProfileRequest']['url']) ? link_to('View profile', matched_connection['siteStandardProfileRequest']['url']) : ''
+
+  .ind_connection_reference
+    p
+      label.control-label.col-sm-1 First Name
+      span
+        == user.first_name
+    p
+      label.control-label.col-sm-1 Last Name
+      span
+        == user.last_name

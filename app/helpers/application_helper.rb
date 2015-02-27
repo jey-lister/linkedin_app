@@ -67,4 +67,13 @@ module ApplicationHelper
     end
   end
 
+  def matched_connection_json(user, match_string)
+    user.detailed_profile.connections.values.last.reject do |connection|
+      match_parser = connection['positions'] && connection['positions']['values'] && connection['positions']['values'].map do |company|
+        company['company'] && company['company']['name'].try(:downcase).try(:include?, match_string.downcase)
+      end
+      !match_parser.try(:include?, true)
+    end
+  end
+
 end

@@ -1,6 +1,9 @@
 == render 'users/linkedin_cached_profile_search_bar'
 
-div width='50%'
-  div
-    == "Total #{pluralize(@matched_users.count, 'user')} found"
-    == render partial: 'cached_user', collection: @matched_users
+.cached-profile-wrapper
+  div style='float: left; width: 90%'
+    .cached-profile
+      == "Total #{pluralize(@matched_users.count, 'user')} found"
+      .cached-profile_lists
+        == render partial: 'cached_user', collection: @matched_users
+  div style='float: left; width: 10%'

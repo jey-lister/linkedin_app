@@ -1,12 +1,1 @@
-div.profile-1-depth
-  table.profile_table.profile-table-1-depth border='0' width='100%'
-    tr
-      td width='30%'
-        | First Name
-      td width='70%'
-        == cached_user.first_name
-    tr
-      td width='30%'
-        | Last Name
-      td width='70%'
-        == cached_user.last_name
+== render partial: 'matched_connection', collection: matched_connection_json(cached_user, params[:search][:linked_in]), locals: { user: cached_user }

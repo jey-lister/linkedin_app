@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     if user.blank?
       user = User.create!(uid: basic_profile['id'])
     end
-    connections = RestClient.get("https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,location:(name),picture-url,positions)?oauth2_access_token=#{oauth2_access_token}&format=json")
+    connections = RestClient.get("https://api.linkedin.com/v1/people/~/connections:(id,first-name,last-name,headline,location,picture-url,site-standard-profile-request,positions)?oauth2_access_token=#{oauth2_access_token}&format=json")
     user.update_attributes(first_name: basic_profile['firstName'], last_name: basic_profile['lastName'], oauth2_access_token: oauth2_access_token, :headline => basic_profile['headline'], provider: 'linkedin')
     user.update_linkedin_connection_info(connections)
     user.detailed_profile.save
