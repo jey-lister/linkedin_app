@@ -1,0 +1,7 @@
+.active-user-detail
+  - users = User.by_provider('linkedin')
+  == "#{pluralize(users.count, 'Active linkedin user')} are present"
+  br
+  br
+  div
+    == users.map { |u| u.full_name }.join(', ')
