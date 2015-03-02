@@ -62,11 +62,11 @@ table{
 }
 .ind_connection {
   float: left;
-  width: 50%;
+  width: 40%;
 }
 .ind_connection_reference {
   float: left;
-  width: 50%;
+  width: 43%;
 }
 .cached-profile {
   width: 100%;
@@ -86,4 +86,22 @@ table{
 }
 .cached-profile-wrapper {
   margin: 30px;
+}
+.connected_through {
+  float: left;
+  width: 17%;
+}
+.connected_through span {
+  float: left;
+  display: block;
+  position: relative;
+  padding-top: 13px;
+}
+.connected_through span::before {
+  content: asset_url('free-icon-download_gradient-blue-arrow-right.png');
+  height: 45px;
+  display: block;
+  left: -65px;
+  top: 0px;
+  position: absolute;
 }
