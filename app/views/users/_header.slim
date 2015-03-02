@@ -3,7 +3,7 @@
     span.signed_in_as
       |Signed in as
     span.user_name
-      == current_user.name
+      == current_user.full_name
       span.signed_in_as
         |Not you?
     == link_to 'Sign out', logout_path, :method => :delete

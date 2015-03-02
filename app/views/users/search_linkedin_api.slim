@@ -1,2 +1,8 @@
 == render 'linked_in_search_form'
-== render partial: 'results', locals: { result: @result }
+
+.cached-profile-wrapper
+  div style='float: left; width: 90%'
+    .cached-profile
+      .cached-profile_lists
+        == render partial: 'results', locals: { result: @result }
+  div style='float: left; width: 10%'

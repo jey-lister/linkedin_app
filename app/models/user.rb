@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   scope :by_provider, -> (provider) { where(provider: provider) }
   scope :by_uid, -> (uid) { where(uid: uid) }
 
+  def full_name
+    "#{first_name} #{last_name}".squeeze(' ')
+  end
+
   def self.login_with_linkedin(oauth2_access_token)
     basic_profile = JSON.parse RestClient.get("https://api.linkedin.com/v1/people/~?oauth2_access_token=#{oauth2_access_token}&format=json")
     user = User.by_uid(basic_profile['id']).first
