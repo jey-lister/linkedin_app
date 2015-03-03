@@ -1,22 +1,22 @@
-- if user_signed_in?
+- if current_user_linkedin
   table.profile_table border='0' width='100%'
     tr
       td
         | First Name
       td
-         == @current_user.first_name
+         == current_user_linkedin.first_name
     tr
       td
         | Last Name
       td
-        == @current_user.last_name
+        == current_user_linkedin.last_name
     tr
       td
         | Title
       td
-        == @current_user.headline
+        == current_user_linkedin.headline
     tr
       td
         | Connections
       td
-        == render partial: 'collection', collection: @current_user.detailed_profile.connections['values']
+        == render partial: 'collection', collection: current_user_linkedin.detailed_profile.connections['values']

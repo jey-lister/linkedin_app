@@ -30,5 +30,8 @@ module LinkedinApp
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.salesforce_app_id = ENV['SALESFORCE_APP_ID']
+    config.salesforce_app_secret = ENV['SALESFORCE_APP_SECRET']
   end
 end

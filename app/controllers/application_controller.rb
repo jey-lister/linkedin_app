@@ -24,8 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_user
-    @current_user = User.find(session[:user])
-    if @current_user
+    if session[:user]
       set_user_sessions
     else
       log_out
@@ -33,10 +32,18 @@ class ApplicationController < ActionController::Base
   end
 
   def set_user_sessions
-    session[:user] = @current_user.id
+    session[:user] = current_user_linkedin.try(:id)
   end
 
-  def current_user
-    @current_user || ((session[:user] && User.find(session[:user])) || (session[:user_id] && User.find(session[:user_id])))
+  def current_user_linkedin
+    session[:user] && User.find(session[:user])
   end
+  helper_method :current_user_linkedin
+
+  private
+
+  def current_user
+    session[:user_id] && User.find(session[:user_id])
+  end
+  helper_method :current_user
 end

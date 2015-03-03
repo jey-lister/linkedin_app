@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #   end
 
 
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users #, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   resources :users do
     collection do
@@ -70,8 +70,10 @@ Rails.application.routes.draw do
     end
   end
 
-  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match '/users/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+
   get '/json' => 'users#profile_json', as: :profile_json
   match '/logout' => 'application#log_out', as: :logout, via: [:get, :delete]
 

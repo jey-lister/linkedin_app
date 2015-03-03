@@ -1,14 +1,24 @@
 .login_header
-  - if user_signed_in?
+  - if current_user
     span.signed_in_as
       |Signed in as
     span.user_name
-      == current_user.full_name
+      == current_user.name
+      span.signed_in_as
+        |Not you?
+    == link_to 'Sign out', signout_path
+  - else
+    == link_to 'Sign in with Salesforce', '/users/auth/salesforce', id: 'sign_in'
+
+  - if current_user_linkedin
+    span.signed_in_as
+      |Signed in as
+    span.user_name
+      == current_user_linkedin.full_name
       span.signed_in_as
         |Not you?
     == link_to 'Sign out', logout_path, :method => :delete
   - else
-    == link_to 'Sign in with Salesforce', '/auth/salesforce', id: 'sign_in'
     == link_to ' ', sign_in_with_linked_in_users_path, { class: 'btn-link', id: 'linkedin_sign_in' }
 
-== render 'users/menu_bar' if user_signed_in?
+== render 'users/menu_bar' if current_user_linkedin

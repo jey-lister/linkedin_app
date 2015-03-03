@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:login, :search_cached_linkedin_users, :sign_in_with_linked_in, :authorize_linkedin_user]
+  skip_before_action :authenticate_user!, only: [:login, :search_cached_linkedin_users, :sign_in_with_linked_in, :authorize_linkedin_user, :lan, :search]
   before_action :linkedin_profile_info, only: [:home, :profile_json]
 
   def login
@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     code          = params[:code]
     access_token  = oauth.get_access_token(code)
     @current_user = User.login_with_linkedin(access_token.token)
+    session[:user] = @current_user.id
     set_user_sessions
     redirect_to action: :home
   end
@@ -33,7 +34,7 @@ class UsersController < ApplicationController
   def search_linkedin_api
     params[:page] ||= '0'
     page_offset   = params[:page].to_i * 10
-    response      = RestClient.get "https://api.linkedin.com/v1/company-search?keywords=#{URI.escape(params[:search][:linked_in])}&sort=relevance&format=json&oauth2_access_token=#{current_user.oauth2_access_token}&start=#{page_offset}"
+    response      = RestClient.get "https://api.linkedin.com/v1/company-search?keywords=#{URI.escape(params[:search][:linked_in])}&sort=relevance&format=json&oauth2_access_token=#{current_user_linkedin.oauth2_access_token}&start=#{page_offset}"
     @result       = JSON.parse response
   end
 
@@ -45,19 +46,8 @@ class UsersController < ApplicationController
     @matched_users = matched_users.compact
   end
 
-  private
-
-  def linkedin_profile_info
-    @linked_in = current_user.detailed_profile.info
-  end
-
-  def matched_users
-    User.by_provider('linkedin').map do |user|
-      user if user.company_matched?(params[:search][:linked_in])
-    end
-  end
-
   def lan
+    a = 1
     if current_user
       client = Restforce.new :oauth_token => current_user.oauth_token,
                              :refresh_token => current_user.refresh_token,
@@ -112,6 +102,18 @@ class UsersController < ApplicationController
         @match_json << jsn
       end
     }
+  end
+
+  private
+
+  def linkedin_profile_info
+    @linked_in = current_user_linkedin.detailed_profile.info
+  end
+
+  def matched_users
+    User.by_provider('linkedin').map do |user|
+      user if user.company_matched?(params[:search][:linked_in])
+    end
   end
 
 end
