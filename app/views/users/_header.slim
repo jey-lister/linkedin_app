@@ -8,6 +8,7 @@
         |Not you?
     == link_to 'Sign out', logout_path, :method => :delete
   - else
+    == link_to 'Sign in with Salesforce', '/auth/salesforce', id: 'sign_in'
     == link_to ' ', sign_in_with_linked_in_users_path, { class: 'btn-link', id: 'linkedin_sign_in' }
 
 == render 'users/menu_bar' if user_signed_in?

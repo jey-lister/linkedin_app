@@ -62,6 +62,9 @@ gem 'omniauth-facebook'
 
 gem 'linkedin-oauth2', '~> 1.0'
 
+gem 'restforce'
+gem 'omniauth-salesforce'
+
 gem 'linkedin-scraper' #parse html file and give user information by their public profile url
 gem 'rest-client', '~> 1.7.2'
 gem 'oauth2'

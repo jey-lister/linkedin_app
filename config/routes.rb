@@ -65,9 +65,13 @@ Rails.application.routes.draw do
       get 'search_linkedin'
       get 'search_linkedin_api'
       get 'search_cached_linkedin_users'
+      get 'lan'
+      get 'search'
     end
   end
 
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
   get '/json' => 'users#profile_json', as: :profile_json
   match '/logout' => 'application#log_out', as: :logout, via: [:get, :delete]
 
