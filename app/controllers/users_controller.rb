@@ -47,7 +47,6 @@ class UsersController < ApplicationController
   end
 
   def lan
-    a = 1
     if current_user
       client = Restforce.new :oauth_token => current_user.oauth_token,
                              :refresh_token => current_user.refresh_token,
