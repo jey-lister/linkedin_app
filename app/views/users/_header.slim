@@ -8,7 +8,7 @@
         |Not you?
     == link_to 'Sign out', signout_path
   - else
-    == link_to 'Sign in with Salesforce', '/users/auth/salesforce', id: 'sign_in'
+    == link_to 'Sign in with Salesforce', '/users/auth/salesforce', { id: 'sign_in', class: 'btn-primary' }
 
   - if current_user_linkedin
     span.signed_in_as
