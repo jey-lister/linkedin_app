@@ -1,0 +1,15 @@
+- cached_sf_user['users'].each do |sf_user|
+  .cached-profile_ind
+    .ind_connection
+      p
+        label.control-label.col-sm-1 First Name
+        span
+          == sf_user
+    .connected_through
+      span
+        |Connected through...
+    .ind_connection_reference
+      p
+        label.control-label.col-sm-1 Company
+        span
+          == cached_sf_user['account']

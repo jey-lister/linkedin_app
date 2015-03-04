@@ -121,8 +121,18 @@ class UsersController < ApplicationController
   end
 
   def matched_sf_users
-    Home.all.map do |obj|
-      JSON.parse(obj.object) if obj.object.downcase.include?(params[:search][:linked_in])
+    ret_json = Home.all.map do |obj|
+      parsed_json = JSON.parse(obj.object)
+      check_occurrence = parsed_json.map do |ol|
+        ol['account'].downcase.include?(params[:search][:linked_in].downcase)
+      end
+      parsed_json if check_occurrence.try(:include?, true)
+    end
+
+    ret_json.compact.map do |sf_user|
+      sf_user.reject do |sf_user_ind|
+        !sf_user_ind['account'].downcase.include?(params[:search][:linked_in].downcase)
+      end
     end
   end
 
