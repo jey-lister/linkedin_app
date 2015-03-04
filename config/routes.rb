@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
   get '/json' => 'users#profile_json', as: :profile_json
+  get '/json1' => 'users#profile_json1', as: :profile_json_1
   match '/logout' => 'application#log_out', as: :logout, via: [:get, :delete]
 
   root to: 'users#login'

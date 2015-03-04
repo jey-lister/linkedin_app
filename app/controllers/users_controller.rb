@@ -42,6 +42,10 @@ class UsersController < ApplicationController
 
   end
 
+  def profile_json1
+
+  end
+
   def search_cached_linkedin_users
     @matched_users = matched_users.compact
     @matched_sf_users = matched_sf_users.compact

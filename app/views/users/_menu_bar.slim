@@ -6,3 +6,5 @@ div
       == link_to('Search Linked in', search_linkedin_users_path)
     li class="#{(params[:controller].eql?('users') && %w(profile_json).include?(params[:action])) ? 'active' : ''}"
       == link_to('JSON', profile_json_path)
+    li class="#{(params[:controller].eql?('users') && %w(profile_json1).include?(params[:action])) ? 'active' : ''}"
+      == link_to('JSON1', profile_json_1_path)
