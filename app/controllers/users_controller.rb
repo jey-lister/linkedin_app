@@ -94,13 +94,13 @@ class UsersController < ApplicationController
 
   def search
     search_text = params['text'].downcase
-    @match_json = Array.new
     search_result = Home.all
-    search_result.each { |jsn|
+    @match_json = search_result.map do |jsn|
       if jsn.object.downcase.include? search_text
-        @match_json << jsn
+        JSON.parse jsn.object
       end
-    }
+    end
+    @match_json = @match_json.compact.to_json
   end
 
   private
