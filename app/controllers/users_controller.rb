@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 
   def search_cached_linkedin_users
     @matched_users = matched_users.compact
+    @matched_sf_users = matched_sf_users.compact
   end
 
   def lan
@@ -112,6 +113,12 @@ class UsersController < ApplicationController
   def matched_users
     User.by_provider('linkedin').map do |user|
       user if user.company_matched?(params[:search][:linked_in])
+    end
+  end
+
+  def matched_sf_users
+    Home.all.map do |obj|
+      JSON.parse(obj.object) if obj.object.downcase.include?(params[:search][:linked_in])
     end
   end
 
