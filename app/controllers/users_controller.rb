@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       @account_info.each { |info| @acc_info_hash.merge!("#{info['Id']}" => "#{info['Name']}") }
       @acc_info_hash
 
-      #getting Opportunity info
+      #opportunity info
       @opp_info = client.query("select ownerid, accountid, Name from Opportunity")
       @opp_info_hash = Hash.new
       @opp_info.each { |info|
@@ -83,11 +83,23 @@ class UsersController < ApplicationController
       }
       @opp_info_hash
 
+      #storing opportunity
+      @opp_name_hash = Hash.new
+      @opp_info.each { |info|
+        if @opp_name_hash.has_key?("#{info['AccountId']}")
+          @opp_name_hash["#{info['AccountId']}"].push("#{info['Name']}")
+        else
+          @opp_name_hash["#{info['AccountId']}"] = Array.new
+          @opp_name_hash["#{info['AccountId']}"].push("#{info['Name']}")
+        end
+      }
+      @opp_name_hash
+
       #json generation
       @json_output = Array.new
       a = Array.new
       @opp_info_hash.select { |key, value|
-        @json_output << ({'account' => "#{@acc_info_hash[key]}", 'users' => value.uniq})
+        @json_output << ({'account' => "#{@acc_info_hash[key]}",'opportunity' => "#{@opp_name_hash[key]}", 'users' => value.uniq})
       }
 
       @save_object = Home.new(:object => @json_output.to_json)
