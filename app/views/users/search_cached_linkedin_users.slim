@@ -13,7 +13,7 @@
     .cached-profile
       == "Total #{pluralize(@matched_sf_users.first.try(:count), 'Salesforce user')} found"
       .cached-profile_lists
-        == render partial: 'cached_sf_user', collection: @matched_sf_users.first
+        == render partial: 'cached_sf_user', collection: @matched_sf_users.flatten(1)
   div style='float: left; width: 33%'
     .cached-profile
       |Total 3 companies matched
