@@ -1,0 +1,31 @@
+- company = company_profile.profile
+.cached-profile_ind
+  .ind_connection
+    p
+      label.control-label.col-sm-1 ID
+      span
+        == company['id']
+    p
+      label.control-label.col-sm-1 Name
+      span
+        == company['name']
+    p
+      label.control-label.col-sm-1 Logo
+      span
+        == image_tag(company['logoUrl'])
+    p
+      label.control-label.col-sm-1 Universal Name
+      span
+        == company['universalName']
+    p
+      label.control-label.col-sm-1 Website
+      span
+        == link_to(company['websiteUrl'])
+    p
+      label.control-label.col-sm-1 Employee Range
+      span
+        == company['employeeCountRange']['name']
+    p
+      label.control-label.col-sm-1 Description
+      span
+        == company['description']

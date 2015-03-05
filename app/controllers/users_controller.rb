@@ -48,6 +48,7 @@ class UsersController < ApplicationController
 
   def search_cached_linkedin_users
     @matched_users = matched_users.compact
+    @matched_sf_users = matched_sf_users.compact
   end
 
   def lan
@@ -110,13 +111,13 @@ class UsersController < ApplicationController
 
   def search
     search_text = params['text'].downcase
-    @match_json = Array.new
     search_result = Home.all
-    search_result.each { |jsn|
+    @match_json = search_result.map do |jsn|
       if jsn.object.downcase.include? search_text
-        @match_json << jsn
+        JSON.parse jsn.object
       end
-    }
+    end
+    @match_json = @match_json.compact.to_json
   end
 
   private
@@ -128,6 +129,22 @@ class UsersController < ApplicationController
   def matched_users
     User.by_provider('linkedin').map do |user|
       user if user.company_matched?(params[:search][:linked_in])
+    end
+  end
+
+  def matched_sf_users
+    ret_json = Home.all.map do |obj|
+      parsed_json = JSON.parse(obj.object)
+      check_occurrence = parsed_json.map do |ol|
+        ol['account'].downcase.include?(params[:search][:linked_in].downcase)
+      end
+      parsed_json if check_occurrence.try(:include?, true)
+    end
+
+    ret_json.compact.map do |sf_user|
+      sf_user.reject do |sf_user_ind|
+        !sf_user_ind['account'].downcase.include?(params[:search][:linked_in].downcase)
+      end
     end
   end
 

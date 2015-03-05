@@ -76,4 +76,28 @@ module ApplicationHelper
     end
   end
 
+  def matched_companies(matched_users, match_string)
+    matched_company_ids = matched_users.map do |user|
+      matched_connection_json(user, match_string).map do |conn|
+        conn['positions']['values'].map do |position|
+          position['company']['id']
+        end
+      end
+    end
+
+    matched_company_ids = matched_company_ids.flatten.uniq.compact
+
+    matched_company_ids.map do |company_id|
+      company = LinkedinCompany[company_id]
+      fetched_profile = RestClient.get "https://api.linkedin.com/v1/companies/#{company_id}:(id,name,universal-name,email-domains,company-type,ticker,website-url,industries,status,logo-url,square-logo-url,blog-rss-url,twitter-id,employee-count-range,specialties,locations,description,stock-exchange,founded-year,end-year,num-followers)?format=json&oauth2_access_token=#{ENV['LINKEDIN_OAUTH2_TOKEN']}"
+
+      if company
+        company.update_attributes(profile: fetched_profile)
+      else
+        company = LinkedinCompany.create(company_id: company_id, profile: fetched_profile)
+      end
+      company
+    end
+  end
+
 end

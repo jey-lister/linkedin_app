@@ -7,3 +7,12 @@
 #linkedin_sign_in:hover {
   background-image: asset_url('signin_with_linkedin-buttons/Non-Retina/Sign-in-Large---Hover.png') !important;
 }
+#sign_in {
+  margin-right: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.login_header a#sign_in {
+  margin-top: 3px;
+}

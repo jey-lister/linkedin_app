@@ -1,10 +1,21 @@
 == render 'users/linkedin_cached_profile_search_bar'
 
+.active-user-detail-wrapper
+  == render 'users/signed_user_details'
+
 .cached-profile-wrapper
-  div style='float: left; width: 80%'
+  div style='float: left; width: 34%'
     .cached-profile
-      == "Total #{pluralize(@matched_users.count, 'user')} found"
+      == "Total #{pluralize(@matched_users.count, 'Linkedin user')} found"
       .cached-profile_lists
         == render partial: 'cached_user', collection: @matched_users
-  div style='float: left; width: 20%'
-    == render 'users/signed_user_details'
+  div style='float: left; width: 33%'
+    .cached-profile
+      == "Total #{pluralize(@matched_sf_users.first.try(:count), 'Salesforce user')} found"
+      .cached-profile_lists
+        == render partial: 'cached_sf_user', collection: @matched_sf_users.first
+  div style='float: left; width: 33%'
+    .cached-profile
+      |Total 3 companies matched
+      .cached-profile_lists
+        == render partial: 'company_profiles', collection: @matched_sf_users.first, locals: { matched_users: @matched_users }
