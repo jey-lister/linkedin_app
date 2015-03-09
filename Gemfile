@@ -69,3 +69,5 @@ gem 'linkedin-scraper' #parse html file and give user information by their publi
 gem 'rest-client', '~> 1.7.2'
 gem 'oauth2'
 gem 'lazy-attribute', '~> 3.0.1'
+gem 'yajl-ruby'
+gem 'json-compare'
