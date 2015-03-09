@@ -67,6 +67,8 @@ Rails.application.routes.draw do
       get 'search_cached_linkedin_users'
       get 'lan'
       get 'search'
+      get 'search_linkedin_users'
+      get 'search_linkedin_users_api'
     end
   end
 

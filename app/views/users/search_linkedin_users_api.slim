@@ -1,0 +1,8 @@
+== render 'users/linkedin_users_search_form'
+
+.cached-profile-wrapper
+  div style='float: left; width: 90%'
+    .cached-profile
+      .cached-profile_lists
+        == render partial: 'user_results', locals: { result: @result }
+  div style='float: left; width: 10%'

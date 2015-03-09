@@ -1,0 +1,16 @@
+div width='50%'
+  div
+    == "Total #{pluralize(result['people']['_total'], 'user')} found"
+    == render partial: 'user_result', collection: result['people']['values']
+  .pagination-bar
+    ul.pagination
+      li class="#{params[:page].eql?('0') ? 'active' : ''}"
+        == link_to('1', { controller: 'users', action: 'search_linkedin_users_api', page: 0, 'search[linked_in]' => params[:search][:linked_in], 'search[key]' => params[:search][:key] }, { })
+      li class="#{params[:page].eql?('1') ? 'active' : ''}"
+        == link_to('2', { controller: 'users', action: 'search_linkedin_users_api', page: 1, 'search[linked_in]' => params[:search][:linked_in], 'search[key]' => params[:search][:key] }, { })
+      li class="#{params[:page].eql?('2') ? 'active' : ''}"
+        == link_to('3', { controller: 'users', action: 'search_linkedin_users_api', page: 2, 'search[linked_in]' => params[:search][:linked_in], 'search[key]' => params[:search][:key] }, { })
+      li class="#{params[:page].eql?('3') ? 'active' : ''}"
+        == link_to('4', { controller: 'users', action: 'search_linkedin_users_api', page: 3, 'search[linked_in]' => params[:search][:linked_in], 'search[key]' => params[:search][:key] }, { })
+      li class="#{params[:page].eql?('4') ? 'active' : ''}"
+        == link_to('5', { controller: 'users', action: 'search_linkedin_users_api', page: 4, 'search[linked_in]' => params[:search][:linked_in], 'search[key]' => params[:search][:key] }, { })

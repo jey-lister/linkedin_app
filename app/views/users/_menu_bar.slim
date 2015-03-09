@@ -3,7 +3,9 @@ div
     li class="#{(params[:controller].eql?('users') && params[:action].eql?('home')) ? 'active' : ''}"
       == link_to('Home', home_users_path)
     li class="#{(params[:controller].eql?('users') && %w(search_linkedin_api search_linkedin).include?(params[:action])) ? 'active' : ''}"
-      == link_to('Search Linked in', search_linkedin_users_path)
+      == link_to('Linkedin Companies Search', search_linkedin_users_path)
+    li class="#{(params[:controller].eql?('users') && %w(search_linkedin_users search_linkedin_users_api).include?(params[:action])) ? 'active' : ''}"
+      == link_to('Linkedin Users Search', search_linkedin_users_users_path)
     li class="#{(params[:controller].eql?('users') && %w(profile_json).include?(params[:action])) ? 'active' : ''}"
       == link_to('JSON', profile_json_path)
     li class="#{(params[:controller].eql?('users') && %w(profile_json1).include?(params[:action])) ? 'active' : ''}"

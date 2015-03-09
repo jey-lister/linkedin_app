@@ -51,6 +51,17 @@ class UsersController < ApplicationController
     @matched_sf_users = matched_sf_users.compact
   end
 
+  def search_linkedin_users
+
+  end
+
+  def search_linkedin_users_api
+    params[:page] ||= '0'
+    page_offset   = params[:page].to_i * 25
+    response = RestClient.get "https://api.linkedin.com/v1/people-search:(people:(id,first-name,last-name,public-profile-url,three-current-positions:(title,company:(name,industry)),distance,picture-url,relation-to-viewer))?oauth2_access_token=#{params[:search][:key]}&company-name=#{URI.escape(params[:search][:linked_in])}&facet=network%2CS&count=25&sort=relevance&format=json&start=#{page_offset}"
+    @result       = JSON.parse response
+  end
+
   def lan
     if current_user
       client = Restforce.new :oauth_token => current_user.oauth_token,
