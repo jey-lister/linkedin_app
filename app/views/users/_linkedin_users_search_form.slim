@@ -12,7 +12,7 @@ div
       label.control-label.col-sm-2 Search
       .col-sm-10
         p.form-control-static
-          == text_field_tag('search[linked_in]', value, { class: 'col-sm-10 input-lg', placeholder: 'Type to search in linked in' })
-          == select_tag('search[type]', options_for_select(['First degree connections', 'Second degree connections', 'Inside one of your groups', 'Out-of-network connections'], selected_type))
+          == text_field_tag('search[linked_in]', value, { class: 'col-sm-8 input-lg', placeholder: 'Type to search in linked in' })
+          == select_tag('search[type]', options_for_select(['First degree connections', 'Second degree connections', 'Inside one of your groups', 'Out-of-network connections'], selected_type), { class: 'col-sm-2 input-lg' })
           span.input-group-btn
           == submit_tag('Search', { class: 'btn btn-default input-lg btn-success' })
