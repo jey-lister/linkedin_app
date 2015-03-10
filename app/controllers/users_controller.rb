@@ -14,10 +14,10 @@ class UsersController < ApplicationController
   end
 
   def authorize_linkedin_user
-    oauth         = LinkedIn::OAuth2.new
-    code          = params[:code]
-    access_token  = oauth.get_access_token(code)
-    @current_user = User.login_with_linkedin(access_token.token)
+    oauth          = LinkedIn::OAuth2.new
+    code           = params[:code]
+    access_token   = oauth.get_access_token(code)
+    @current_user  = User.login_with_linkedin(access_token.token)
     session[:user] = @current_user.id
     set_user_sessions
     redirect_to action: :home
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   def search_cached_linkedin_users
-    @matched_users = matched_users.compact
+    @matched_users    = matched_users.compact
     @matched_sf_users = matched_sf_users.compact
   end
 
@@ -58,32 +58,34 @@ class UsersController < ApplicationController
   def search_linkedin_users_api
     params[:page] ||= '0'
     page_offset   = params[:page].to_i * 25
-    response = RestClient.get "https://api.linkedin.com/v1/people-search:(people:(id,first-name,last-name,public-profile-url,three-current-positions:(title,company:(name,industry)),distance,picture-url,relation-to-viewer))?oauth2_access_token=#{params[:search][:key]}&company-name=#{URI.escape(params[:search][:linked_in])}&facet=network%2CS&count=25&sort=relevance&format=json&start=#{page_offset}"
+    search_type_map = { 'First degree connections' => 'F', 'Second degree connections' => 'S', 'Inside one of your groups' => 'A', 'Out-of-network connections' => 'O' }
+    search_type_map = search_type_map[params[:search][:type]].blank? ? 'F' : search_type_map[params[:search][:type]]
+    response      = RestClient.get "https://api.linkedin.com/v1/people-search:(people:(id,first-name,last-name,public-profile-url,three-current-positions:(title,company:(name,industry)),distance,picture-url,relation-to-viewer))?oauth2_access_token=#{params[:search][:key]}&company-name=#{URI.escape(params[:search][:linked_in])}&facet=network%2C#{search_type_map}&count=25&sort=relevance&format=json&start=#{page_offset}"
     @result       = JSON.parse response
   end
 
   def lan
     if current_user
-      client = Restforce.new :oauth_token => current_user.oauth_token,
-                             :refresh_token => current_user.refresh_token,
-                             :instance_url => current_user.instance_url,
-                             :client_id => Rails.application.config.salesforce_app_id,
-                             :client_secret => Rails.application.config.salesforce_app_secret
+      client          = Restforce.new(oauth_token:   current_user.oauth_token,
+                                      refresh_token: current_user.refresh_token,
+                                      instance_url:  current_user.instance_url,
+                                      client_id:     Rails.application.config.salesforce_app_id,
+                                      client_secret: Rails.application.config.salesforce_app_secret)
 
       #user info
-      @user_info = client.query("select Id, Name from User")
+      @user_info      = client.query('select Id, Name from User')
       @user_info_hash = Hash.new
       @user_info.each { |info| @user_info_hash.merge!("#{info['Id']}" => "#{info['Name']}") }
       @user_info_hash
 
       #account info
-      @account_info = client.query("select Id, Name from Account")
+      @account_info  = client.query('select Id, Name from Account')
       @acc_info_hash = Hash.new
       @account_info.each { |info| @acc_info_hash.merge!("#{info['Id']}" => "#{info['Name']}") }
       @acc_info_hash
 
       #opportunity info
-      @opp_info = client.query("select ownerid, accountid, Name from Opportunity")
+      @opp_info      = client.query('select ownerid, accountid, Name from Opportunity')
       @opp_info_hash = Hash.new
       @opp_info.each { |info|
         if @opp_info_hash.has_key?("#{info['AccountId']}")
@@ -109,9 +111,9 @@ class UsersController < ApplicationController
 
       #json generation
       @json_output = Array.new
-      a = Array.new
+      a            = Array.new
       @opp_info_hash.select { |key, value|
-        @json_output << ({'account' => "#{@acc_info_hash[key]}",'opportunity' => "#{@opp_name_hash[key]}", 'users' => value.uniq})
+        @json_output << ({ 'account' => "#{@acc_info_hash[key]}", 'opportunity' => "#{@opp_name_hash[key]}", 'users' => value.uniq })
       }
 
       @save_object = Home.new(:object => @json_output.to_json)
@@ -121,14 +123,14 @@ class UsersController < ApplicationController
   end
 
   def search
-    search_text = params['text'].downcase
+    search_text   = params['text'].downcase
     search_result = Home.all
-    @match_json = search_result.map do |jsn|
+    @match_json   = search_result.map do |jsn|
       if jsn.object.downcase.include? search_text
         JSON.parse jsn.object
       end
     end
-    @match_json = @match_json.compact.to_json
+    @match_json   = @match_json.compact.to_json
   end
 
   private
@@ -145,7 +147,7 @@ class UsersController < ApplicationController
 
   def matched_sf_users
     ret_json = Home.all.map do |obj|
-      parsed_json = JSON.parse(obj.object)
+      parsed_json      = JSON.parse(obj.object)
       check_occurrence = parsed_json.map do |ol|
         ol['account'].downcase.include?(params[:search][:linked_in].downcase)
       end
